@@ -1,6 +1,7 @@
 package com.example.roomandviewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -18,23 +19,13 @@ abstract class NoteDataBase:RoomDatabase() {
 
         private var instance:NoteDataBase? = null
 
-        @Synchronized
-        fun getInstance(context: Context):NoteDataBase{
-            if(instance==null){
-                instance= Room.databaseBuilder(context.applicationContext,
-                NoteDataBase::class.java,"note_database")
-                    .fallbackToDestructiveMigration()
-                    .build()
-            }
-            return instance!!
-        }
         private var roomCallback:RoomDatabase.Callback =object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
+                Log.d("ROOM LOG","NEW DB CREATED")
                 populateDb(instance!!)
             }
         }
-
         private fun populateDb(db:NoteDataBase){
             val noteDao= db.noteDao()
             CoroutineScope(IO).launch {
@@ -44,6 +35,19 @@ abstract class NoteDataBase:RoomDatabase() {
             }
         }
 
+
+
+        @Synchronized
+        fun getInstance(context: Context):NoteDataBase{
+            if(instance==null){
+                instance= Room.databaseBuilder(context.applicationContext,
+                NoteDataBase::class.java,"note_database")
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
+                    .build()
+            }
+            return instance!!
+        }
 
     }
 
