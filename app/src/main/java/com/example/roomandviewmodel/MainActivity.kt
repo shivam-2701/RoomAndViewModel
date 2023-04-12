@@ -26,14 +26,9 @@ class MainActivity : AppCompatActivity() {
         noteViewModel= viewModelProvider[NoteViewModel::class.java]
         noteViewModel.getAllNotes().observe(this, object:Observer<List<Note>>{
             override fun onChanged(value: List<Note>) {
-//                 //update RecyclerView or any ui element
-//                Toast.makeText(this@MainActivity,"onChanged",Toast.LENGTH_SHORT).show()
                 adapter.setNotes(value)
             }
 
         })
-
-
-
     }
 }
