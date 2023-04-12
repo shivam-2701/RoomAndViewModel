@@ -10,9 +10,7 @@ import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.Toast
 
-    const val EXTRA_TITLE="com.roomandviewmodel.EXTRA_TITLE"
-    const val EXTRA_DESCIPTION="com.roomandviewmodel.EXTRA_DESCIPTION"
-    const val EXTRA_PRIORITY="com.roomandviewmodel.EXTRA_PRIORITY"
+
 class AddNoteActivity : AppCompatActivity() {
     private lateinit var editTextTitle:EditText
     private lateinit var editTextDescription:EditText
@@ -48,9 +46,9 @@ class AddNoteActivity : AppCompatActivity() {
 
 //    Use startActivityForResult method to make this activity act as a form
         val data= Intent()
-        data.putExtra(EXTRA_TITLE,title)
-        data.putExtra(EXTRA_DESCIPTION,description)
-        data.putExtra(EXTRA_PRIORITY,priorityEntry)
+        data.putExtra(Constants.EXTRA_TITLE,title)
+        data.putExtra(Constants.EXTRA_DESCRIPTION,description)
+        data.putExtra(Constants.EXTRA_PRIORITY,priorityEntry)
 
 //        this method set the state of data sent back
         setResult(RESULT_OK,data)

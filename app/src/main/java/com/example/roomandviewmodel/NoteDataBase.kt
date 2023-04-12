@@ -23,6 +23,7 @@ abstract class NoteDataBase:RoomDatabase() {
             if(instance==null){
                 instance= Room.databaseBuilder(context.applicationContext,
                 NoteDataBase::class.java,"note_database")
+                    .addCallback(roomCallback)
                     .fallbackToDestructiveMigration()
                     .build()
             }
